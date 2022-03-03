@@ -1,6 +1,6 @@
 {
   "name": "@crewcharge/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Crewcharge is a customer analytics, customer success tool for SaaS companies. The core package allows logging triggers and performing user crud operations within Crewcharge",
   "main": "index.js",
   "scripts": {
