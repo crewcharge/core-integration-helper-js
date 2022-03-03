@@ -5,7 +5,7 @@
  *
  * @param {String} analytics_tag - Your Analytics key with Crewcharge.
  *
- * @param {String} uid_hashed - Identifier of the user that needs to be a one-way hash.
+ * @param {String} uid_hashed - Identifier of the user that needs to be a one-way hash. This must start with your Project key.
  *
  * @param {Object} attributes - Contains information about the user.
  * You can attach any attributes, but the needed ones are {@see recommended_user_attributes}
@@ -38,7 +38,7 @@
  * [GDPR Rules]
  *
  */
-export async function attachUserAttributes({
+async function attachUserAttributes({
                                                api_key,
                                                analytics_tag,
                                                uid_hashed,
@@ -51,7 +51,7 @@ export async function attachUserAttributes({
 
         const crewcharge_preferences = privacy_preferences ? {...privacy_preferences} : null
 
-        return await fetch(`${crewcharge_endpoint}/api/v1/users/attach-attributes`, {
+        return await fetch(`${crewcharge_v1_endpoint}/api/v1/users/attach-attributes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,14 +77,14 @@ export async function attachUserAttributes({
 
 }
 
-export const recommended_user_attributes = {
+const recommended_user_attributes = {
     pii_name: "pii_name",
     pii_email: "pii_email",
     pii_image: "pii_image",
     locale: "locale"
 }
 
-export const valid_privacy_preferences = {
+const valid_privacy_preferences = {
     anon: false,
     test: false,
     analytics: {
@@ -102,4 +102,11 @@ export const valid_privacy_preferences = {
     },
 }
 
-export const crewcharge_endpoint = `https://app.crewcharge.com`;
+const crewcharge_v1_endpoint = `http://localhost:3000`;
+
+module.exports = {
+    attachUserAttributes,
+    crewcharge_v1_endpoint,
+    valid_privacy_preferences,
+    recommended_user_attributes
+}
