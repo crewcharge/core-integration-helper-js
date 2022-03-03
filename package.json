@@ -1,0 +1,35 @@
+{
+  "name": "@crewcharge/core",
+  "version": "1.0.0",
+  "description": "Crewcharge is a customer analytics, customer success tool for SaaS companies. The core package allows logging triggers and performing user crud operations within Crewcharge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crewcharge/core-integration-helper-js.git"
+  },
+  "keywords": [
+    "Crewcharge",
+    "Crewcharge",
+    "logger",
+    "Crewcharge",
+    "user",
+    "helper",
+    "Customer",
+    "Success",
+    "SaaS",
+    "Customer",
+    "Retention",
+    "Customer",
+    "Analytics",
+    "Analytics"
+  ],
+  "author": "Bharadwaj Giridhar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crewcharge/core-integration-helper-js/issues"
+  },
+  "homepage": "https://github.com/crewcharge/core-integration-helper-js#readme"
+}
