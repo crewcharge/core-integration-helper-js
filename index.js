@@ -51,7 +51,7 @@ export async function attachUserAttributes({
 
         const crewcharge_preferences = privacy_preferences ? {...privacy_preferences} : null
 
-        const attach_user_attributes_response = await fetch(`${crewcharge_endpoint}/api/v1/users/attach-attributes`, {
+        return await fetch(`${crewcharge_endpoint}/api/v1/users/attach-attributes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -63,10 +63,9 @@ export async function attachUserAttributes({
                 uid_hashed: uid_hashed,
                 as_test_user: test_user,
                 attributes: {...attributes},
-                crewcharge-preferences: crewcharge_preferences
+                crewcharge_preferences: crewcharge_preferences
             })
-
-        return attach_user_attributes_response
+        })
     } catch (e) {
         console.error(e)
         return {
@@ -103,4 +102,4 @@ export const valid_privacy_preferences = {
     },
 }
 
-const crewcharge_endpoint = `https://app.crewcharge.com`
+export const crewcharge_endpoint = `https://app.crewcharge.com`;
