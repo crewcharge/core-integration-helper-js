@@ -139,6 +139,7 @@ const crewcharge_v1_endpoint = `http://localhost:3000`;
 
 module.exports = {
     attachUserAttributes,
+    logTrigger,
     crewcharge_v1_endpoint,
     valid_privacy_preferences,
     recommended_user_attributes
