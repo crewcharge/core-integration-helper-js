@@ -39,13 +39,13 @@
  *
  */
 async function attachUserAttributes({
-                                               api_key,
-                                               analytics_tag,
-                                               uid_hashed,
-                                               attributes,
-                                               privacy_preferences,
-                                               test_user
-                                           }) {
+                                        api_key,
+                                        analytics_tag,
+                                        uid_hashed,
+                                        attributes,
+                                        privacy_preferences,
+                                        test_user
+                                    }) {
 
     try {
 
@@ -75,6 +75,39 @@ async function attachUserAttributes({
     }
 
 
+}
+
+/**
+ * @param analytics_tag is your tag obtained for this project.
+ * @param uid_hashed pass a hashed key of user id of your customer.
+ * @param trigger_key the key you want to track (Obtain this from your Crewcharge Console)
+ *
+ * @return {Promise<Response|{ok: boolean, error: string}>}
+ */
+async function logTrigger({
+                              analytics_tag,
+                              uid_hashed,
+                              trigger_key
+                          }) {
+    try {
+        return await fetch(`${crewcharge_v1_endpoint}/api/v1/log`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                analytics_tag: analytics_tag,
+                uid_hashed: uid_hashed,
+                trigger_key: trigger_key
+            })
+        })
+    } catch (e) {
+        console.error(e)
+        return {
+            ok: false,
+            error: e ?? "Unexpected error happened!"
+        }
+    }
 }
 
 const recommended_user_attributes = {
