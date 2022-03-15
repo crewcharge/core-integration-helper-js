@@ -135,7 +135,7 @@ const valid_privacy_preferences = {
     },
 }
 
-const crewcharge_v1_endpoint = `http://localhost:3000`;
+const crewcharge_v1_endpoint = `https://app.crewcharge.com`;
 
 module.exports = {
     attachUserAttributes,
