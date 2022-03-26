@@ -1,4 +1,4 @@
-const SHA3 = require("sha3");
+const { SHA3 } = require('sha3');
 
 /**
  * Attaches a new user with Crewcharge or modifies the existing user preferences.
@@ -48,8 +48,6 @@ async function attachUserAttributes({
 
     try {
 
-        const crewcharge_preferences = privacy_preferences ? {...privacy_preferences} : null
-
         return await fetch(`${crewcharge_v1_endpoint}/api/v1/users/attach-attributes`, {
             method: "POST",
             headers: {
@@ -61,7 +59,7 @@ async function attachUserAttributes({
                 uid_hashed: uid_hashed,
                 as_test_user: test_user,
                 attributes: {...attributes},
-                crewcharge_preferences: crewcharge_preferences
+                privacy_preferences: privacy_preferences
             })
         })
     } catch (e) {
