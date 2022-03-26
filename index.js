@@ -1,11 +1,11 @@
+const SHA3 = require("sha3");
+
 /**
  * Attaches a new user with Crewcharge or modifies the existing user preferences.
  *
  * @param {String} api_key - Your API key within Crewcharge.
  *
- * @param {String} analytics_tag - Your Analytics key with Crewcharge.
- *
- * @param {String} uid_hashed - Identifier of the user that needs to be a one-way hash. This must start with your Project key.
+ * @param {String} uid_hashed - Identifier of the user that needs to be a one-way hash. This must start with your Project key and be generated using genHash function.
  *
  * @param {Object} attributes - Contains information about the user.
  * You can attach any attributes, but the needed ones are {@see recommended_user_attributes}
@@ -40,7 +40,6 @@
  */
 async function attachUserAttributes({
                                         api_key,
-                                        analytics_tag,
                                         uid_hashed,
                                         attributes,
                                         privacy_preferences,
@@ -59,7 +58,6 @@ async function attachUserAttributes({
                 "api-key": api_key
             },
             body: JSON.stringify({
-                analytics_tag: analytics_tag,
                 uid_hashed: uid_hashed,
                 as_test_user: test_user,
                 attributes: {...attributes},
@@ -118,8 +116,6 @@ const recommended_user_attributes = {
 }
 
 const valid_privacy_preferences = {
-    anon: false,
-    test: false,
     analytics: {
         pii: false
     }, feedback: {
@@ -135,9 +131,29 @@ const valid_privacy_preferences = {
     },
 }
 
+/**
+ *
+ * @param project_key is the unique project key of your Crewcharge project. Found at https://app.crewcharge.com/projects (and click on your project)
+ * @param userid is your customer's user id inside your database. In case you don't have an id, pass their email.
+ * @return {Promise<string|*>}
+ */
+async function genHash({ project_key, userid}) {
+    try {
+        const hash = new SHA3(512);
+        hash.update(userid);
+        const hashed_uid = hash.digest("hex").toString();
+        return project_key + "_" + hashed_uid;
+    } catch (err) {
+        console.error(err);
+        console.error("genHash❌ Unable to hash.");
+        return userid;
+    }
+}
+
 const crewcharge_v1_endpoint = `https://app.crewcharge.com`;
 
 module.exports = {
+    genHash,
     attachUserAttributes,
     logTrigger,
     crewcharge_v1_endpoint,
